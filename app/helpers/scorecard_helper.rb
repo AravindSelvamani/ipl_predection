@@ -1,0 +1,2 @@
+module ScorecardHelper
+end

@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+<h1 style="color:red;text-align:center">Scoreboard</h1>
+
+<table id='scoreboard'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Point</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.point %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

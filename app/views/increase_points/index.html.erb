@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Increase Points</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Winner1</th>
+      <th>Winner2</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @increase_points.each do |increase_point| %>
+      <tr>
+        <td><%= increase_point.date %></td>
+        <td><%= increase_point.winner1 %></td>
+        <td><%= increase_point.winner2 %></td>
+        <td><%= link_to 'Show', increase_point %></td>
+        <td><%= link_to 'increase_user_points', new_increase_point_url %>
+        <td><%= link_to 'Edit', edit_increase_point_path(increase_point) %></td>
+        <td><%= link_to 'Destroy', increase_point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Increase Point', new_increase_point_path %>

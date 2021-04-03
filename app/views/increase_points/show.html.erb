@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @increase_point.date %>
+</p>
+
+<p>
+  <strong>Winner1:</strong>
+  <%= @increase_point.winner1 %>
+</p>
+
+<p>
+  <strong>Winner2:</strong>
+  <%= @increase_point.winner2 %>
+</p>
+
+<%= link_to 'Edit', edit_increase_point_path(@increase_point) %> |
+<%= link_to 'Back', increase_points_path %>

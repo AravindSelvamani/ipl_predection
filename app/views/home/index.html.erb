@@ -1,0 +1,36 @@
+<h1 style="color:red;text-align:center">Predict the winning team</h1>
+<p class="text_center"> Click on the card to select the team</p>
+<%= link_to 'Scoreboard',users_path, class: 'button' %>
+<% match_number = 1%>
+<% Time.now.utc.strftime("%d-%b-%y") %>
+<% Time.now.utc %>
+<br><br><br>
+<h1 style="color:blue;text-align:center"> Today matches </h1>
+<br><br><br>
+<% HomeHelper::MATCH_SCHEDULE['18-Apr-21'].each do |match| %>
+
+  <div class="row">
+   <h1 class='text_center'> Match <%= match_number %> </h1>
+   <br><br>
+    <div class="column">
+      <div class="card">
+        <%= image_tag "#{match['team1']}.jpg", style: "width:300px" %>
+        <div class="container text_center">
+          <h4><b><%= match['team1']%></b></h4>
+        </div>
+      </div>
+    </div>
+    
+    <div class="column">
+    <div class="card">
+      <%= image_tag "#{match['team2']}.jpg", style: "width:300px" %>
+      <div class="container text_center">
+        <h4><b><%= match['team2']%></b></h4>
+      </div>
+    </div>
+    </div>
+  </div>
+  <br><br><br><br>
+  <% match_number+= 1%>
+<% end %>
+

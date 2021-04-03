@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+<% if false %>
+<p>
+  <strong>Name:</strong>
+  <%= @match_predection.name %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @match_predection.date %>
+</p>
+
+<p>
+  <strong>Winners:</strong>
+  <%= @match_predection.winners1 %>
+  <%= @match_predection.winners2 %>
+</p>
+
+<%= link_to 'Edit', edit_match_predection_path(@match_predection) %> |
+<%= link_to 'Back', match_predections_path %>
+<%end%>
