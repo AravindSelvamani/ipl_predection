@@ -2,12 +2,13 @@
 <h3 class="text_center"> Click on the card to select the team</h3>
 <%= link_to 'Scoreboard',users_path, class: 'button' %>
 <% match_number = 1%>
-<% Time.now.utc.strftime("%d-%b-%y") %>
-<% Time.now.utc %>
+<% today = Time.now.utc.strftime("%d-%b-%y") %>
+<% match_start_date = "9-Apr-21" %>
 <br><br><br>
 <h1 style="text-align:center"> Today matches </h1>
 <br><br><br>
-<% all_match = HomeHelper::MATCH_SCHEDULE['18-Apr-21'] %>
+<% today_match = today >= match_start_date ? today : match_start_date %>
+<% all_match = HomeHelper::MATCH_SCHEDULE[today_match] %>
 <% match = all_match.first %>
 
 <%= form_for @new_match_predection do |f| %>

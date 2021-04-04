@@ -39,9 +39,15 @@ class MatchPredectionsController < ApplicationController
     @all_match_predection.find_by(name: match_predection_params['name'], date: Time.now.utc.strftime("%d-%b-%y") )
   end
 
+  def get_date
+    today = Time.now.utc.strftime("%d-%b-%y")
+    match_start_date = "9-Apr-21"
+    today >= match_start_date ? today : match_start_date
+  end
+
   def update_values(match_predection_params)
     all_match_predection
-    match_schedule = HomeHelper::MATCH_SCHEDULE['18-Apr-21']
+    match_schedule = HomeHelper::MATCH_SCHEDULE[get_date]
     match_schedule.each_with_index do |match,i|
       unless match['start_time'] > Time.now.utc
         existing_data = is_match_predection_present?(match_predection_params)
