@@ -56,11 +56,13 @@ class MatchPredectionsController < ApplicationController
           current_value = existing_data["winners#{i+1}"]
           match_predection_params["winners#{i+1}"] = current_value
           puts "existing here #{match_predection_params}"
+          @flash_error_message += "Predection Time closed for Match #{i+1}. Value can't be updated <br>"
         else
           match_predection_params["winners#{i+1}"] = nil
           puts "existing there #{match_predection_params}"
+          @flash_error_message += "Predection Time closed for Match #{i+1}. <br>"
         end
-        @flash_error_message += "Predection Time closed for Match #{i+1}. Value can't be updated <br>"
+        
       end
     end
     match_predection_params
@@ -84,12 +86,16 @@ class MatchPredectionsController < ApplicationController
           format.html { redirect_to root_path, success: "Match predection was successfully updated" }
         end
       end
-      @flash_error_message = nil
     else
       @match_predection = MatchPredection.new(update_match_predection_params)
+      
       respond_to do |format|
         if @match_predection.save
-          format.html { redirect_to root_path, success: "Match predection was successfully created." }
+          unless @flash_error_message.nil?
+            format.html { redirect_to root_path, danger: @flash_error_message.html_safe }
+          else
+            format.html { redirect_to root_path, success: "Match predection was successfully created." }
+          end
           create_users
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -97,6 +103,7 @@ class MatchPredectionsController < ApplicationController
         end
       end
     end
+    @flash_error_message = nil
   end
 
 
