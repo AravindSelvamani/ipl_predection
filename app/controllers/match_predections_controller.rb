@@ -48,7 +48,8 @@ class MatchPredectionsController < ApplicationController
   def update_values(match_predection_params)
     all_match_predection
     match_schedule = HomeHelper::MATCH_SCHEDULE[get_date]
-    match_schedule.each_with_index do |match,i|
+    @flash_error_message = ""
+    match_schedule.each_with_index do |match, i|
       unless match['start_time'] > Time.now.utc
         existing_data = is_match_predection_present?(match_predection_params)
         if existing_data
@@ -59,6 +60,7 @@ class MatchPredectionsController < ApplicationController
           match_predection_params["winners#{i+1}"] = nil
           puts "existing there #{match_predection_params}"
         end
+        @flash_error_message += "Predection Time closed for Match #{i+1}. Value can't be updated <br>"
       end
     end
     match_predection_params
@@ -74,13 +76,20 @@ class MatchPredectionsController < ApplicationController
       existing_user_data.winners1 = update_match_predection_params['winners1']
       existing_user_data.winners2 = update_match_predection_params['winners2']
       existing_user_data.save!
-      # flash.now[:success] = "Match predection was successfully updated"
+      
+      respond_to do |format|
+        unless @flash_error_message.nil?
+          format.html { redirect_to root_path, danger: @flash_error_message.html_safe }
+        else
+          format.html { redirect_to root_path, success: "Match predection was successfully updated" }
+        end
+      end
+      @flash_error_message = nil
     else
       @match_predection = MatchPredection.new(update_match_predection_params)
       respond_to do |format|
         if @match_predection.save
-          format.html { redirect_to @match_predection, notice: "Match predection was successfully created." }
-          format.json { render :show, status: :created, location: @match_predection }
+          format.html { redirect_to root_path, success: "Match predection was successfully created." }
           create_users
         else
           format.html { render :new, status: :unprocessable_entity }
