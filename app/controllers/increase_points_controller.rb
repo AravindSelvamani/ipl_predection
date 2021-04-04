@@ -18,20 +18,24 @@ class IncreasePointsController < ApplicationController
     @match_predections = MatchPredection.all
     @users = User.all.order(point: :desc)
     winner2 = @increase_point.winner2 
-    @match1_winners = @match_predections.find_by(date: @increase_point.date, winners1: @increase_point.winner1 )
-    @match1_winners.entries.each do |winner| 
-      user = @users.find(winner.name)
+    @match1_winners = @match_predections.where(date: @increase_point.date, winners1: @increase_point.winner1 )
+    @match1_winners.each do |winner|
+      user = @users.find_by_name(winner.name)
       user.point +=1 
       user.save!
     end
     unless winner2.empty?
-      @match2_winners = @match_predections.find_by(date: @increase_point.date, winners2: @increase_point.winner2)
+      @match2_winners = @match_predections.where(date: @increase_point.date, winners2: @increase_point.winner2)
       @match2_winners.each do |winner| 
-        user = @users.find(winner.name)
+        user = @users.find_by_name(winner.name)
         user.point +=1 
         user.save!
       end
     end
+  end
+
+  def check_password(increase_point_params)
+    increase_point_params['password'] == ENV['PASSWORD']
   end
 
   # GET /increase_points/1/edit
@@ -40,19 +44,20 @@ class IncreasePointsController < ApplicationController
 
   # POST /increase_points or /increase_points.json
   def create
-    @increase_point = IncreasePoint.new(increase_point_params)
+    if check_password(increase_point_params)
+      @increase_point = IncreasePoint.new(increase_point_params)
 
-    respond_to do |format|
-      if @increase_point.save
-        format.html { redirect_to @increase_point, notice: "Increase point was successfully created." }
-        format.json { render :show, status: :created, location: @increase_point }
-        increase_user_points
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @increase_point.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @increase_point.save
+          format.html { redirect_to @increase_point, notice: "Increase point was successfully created." }
+          format.json { render :show, status: :created, location: @increase_point }
+          increase_user_points
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @increase_point.errors, status: :unprocessable_entity }
+        end
       end
     end
-    
   end
 
   # PATCH/PUT /increase_points/1 or /increase_points/1.json
@@ -85,6 +90,6 @@ class IncreasePointsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def increase_point_params
-      params.require(:increase_point).permit(:date, :winner1, :winner2)
+      params.require(:increase_point).permit(:date, :winner1, :winner2, :password)
     end
 end

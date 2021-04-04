@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_03_141334) do
+ActiveRecord::Schema.define(version: 2021_04_04_050608) do
 
   create_table "increase_points", force: :cascade do |t|
     t.string "date"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_04_03_141334) do
     t.string "winner2"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password"
   end
 
   create_table "match_predection", force: :cascade do |t|

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TestIpl</title>
+    <title>IPL Predection</title>
+    <%= favicon_link_tag 'favicon.png' %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,11 +11,6 @@
   </head>
 
   <body>
-    <% flash.each do |name,value| %>
-      <div class=<% "alert alert-#{name}" %> > 
-        <%= value %>
-      </div>
-    <% end %>
     <%= yield %>
   </body>
 </html>

@@ -1,46 +1,57 @@
 <h1 style="color:red;text-align:center">Predict the winning team</h1>
-<p class="text_center"> Click on the card to select the team</p>
+<h3 class="text_center"> Click on the card to select the team</h3>
 <%= link_to 'Scoreboard',users_path, class: 'button' %>
 <% match_number = 1%>
 <% Time.now.utc.strftime("%d-%b-%y") %>
 <% Time.now.utc %>
 <br><br><br>
-<h1 style="color:blue;text-align:center"> Today matches </h1>
+<h1 style="text-align:center"> Today matches </h1>
 <br><br><br>
 <% all_match = HomeHelper::MATCH_SCHEDULE['18-Apr-21'] %>
 <% match = all_match.first %>
 
 <%= form_for @new_match_predection do |f| %>
-  <%= f.label :name, 'Your name', class: 'name_class' %>
-  <%= f.text_field :name, class: 'form-control' %>
-  <div class="row">
-  <h1 class='text_center'> Match <%= match_number %> </h1>
-  <% end_time = all_match.count > 1 ? "3:30 PM" : "7:30 PM" %>
-  <h3 class='text_center'> Predection End Time <%= end_time %> </h3>
-    <%= f.collection_radio_buttons(:winners1, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last) do |b| %>
-      <div class="column">
-        <div class="card">
-          <%= b.label { b.radio_button + image_tag(b.text+'.jpg', style: "width:300px") } %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-  <br><br><br><br>
-  <% match_number+= 1%>
-  <% if all_match.count > 1 %>
-    <% match = all_match.last %>
+  <center> 
+    <%= f.text_field :name, class: 'form-control', placeholder: "Enter Your Name" %>
+    <br><br><br>
+
     <div class="row">
-    <h1 class='text_center'> Match <%= match_number %> </h1>
-    <h3 class='text_center'> Predection End Time 7:30 PM </h3>
-      <%= f.collection_radio_buttons(:winners2, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last) do |b| %>
+      <h1> Match <%= match_number %> </h1>
+      <% end_time = all_match.count > 1 ? "3:30 PM" : "7:30 PM" %>
+      <h3> You can select the team till <%= end_time %> </h3>
+
+      <%= f.collection_radio_buttons(:winners1, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last) do |b| %>
         <div class="column">
           <div class="card">
             <%= b.label { b.radio_button + image_tag(b.text+'.jpg', style: "width:300px") } %>
+            <div class="container">
+              <h3><b><%= b.text %></b></h3>
+            </div>
           </div>
         </div>
       <% end %>
     </div>
-  <% end %>
-  <br><br><br>
-<%= f.submit "Submit", class: 'save_button' %>
+
+    <% match_number+= 1%>
+
+    <% if all_match.count > 1 %>
+      <% match = all_match.last %>
+      <div class="row">
+        <h1> Match <%= match_number %> </h1>
+        <h3> You can select the team till 7:30 PM </h3>
+        <%= f.collection_radio_buttons(:winners2, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last,html_options: { class: 'form-control' }) do |b| %>
+          <div class="column">
+            <div class="card">
+              <%= b.label { b.radio_button + image_tag(b.text+'.jpg', style: "width:300px") } %>
+              <div class="container">
+                <h3><b><%= b.text %></b></h3>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+  </center>
+  <%= f.submit "Submit", class: 'save_button' %>
 <% end %>

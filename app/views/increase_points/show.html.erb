@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<% if false%>
 <p>
   <strong>Date:</strong>
   <%= @increase_point.date %>
@@ -16,4 +16,5 @@
 </p>
 
 <%= link_to 'Edit', edit_increase_point_path(@increase_point) %> |
-<%= link_to 'Back', increase_points_path %>
+<%= link_to 'Back', increase_points_path %> 
+<% end %>
