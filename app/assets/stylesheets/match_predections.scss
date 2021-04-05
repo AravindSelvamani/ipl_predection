@@ -7,9 +7,9 @@
 /* Three image containers (use 25% for four, and 50% for two, etc) */
 .column {
   float: left;
-  width: 33.33%;
-  // padding: 0 1%;
-  // padding-left:20vw;
+  width: 30%;
+  padding: 0 1%;
+  padding-left:20vw;
   /* viewport width's 20%*/
 }
 
@@ -23,8 +23,8 @@
 
 .card {
   /* Add shadows to create the "card" effect */
-  box-shadow: 0 20px 10px 0 rgba(31, 30, 30, 0.5);
-  transition: 0.1s;
+  box-shadow: 0 20px 50px 0 rgba(31, 30, 30, 0.5);
+  transition: 0.2s;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
@@ -36,6 +36,7 @@
   /* Added */
   margin-bottom: 50%;
   margin-left: 50%;
+  border-radius: 15px;
   /* Added */
 
 }
@@ -43,6 +44,7 @@
 /* On mouse-over, add a deeper shadow */
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  background-color: rgba(16, 35, 46, 0.733);
 }
 
 /* Add some padding inside the card container */
@@ -101,4 +103,16 @@
   position: relative;
   top:50%;
   left:47%;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  // background-color: #15c255;
+  border-radius: 50%;
+  color: green
 }

@@ -1,11 +1,11 @@
-<h1 style="color:red;text-align:center;font-family:'Georgia'">Predict the winning team</h1>
+<h1 style="color:red;text-align:center;font-family:'Georgia';font-style: italic">Predict The Winning Team</h1>
 <p class="text_center"> Click on the card to select the team</p>
 <%= link_to 'Scoreboard',users_path, class: 'button' %>
 <% match_number = 1%>
 <% today = Time.now.utc.strftime("%d-%b-%y") %>
 <% match_start_date = "9-Apr-21" %>
 <br><br><br>
-<h1 style="text-align:center"> Today matches </h1>
+
 <br><br><br>
 <% today_match = today >= match_start_date ? today : match_start_date %>
 <% all_match = MatchPredectionsHelper::MATCH_SCHEDULE[today_match] %>
@@ -13,27 +13,29 @@
 
 <%= form_for @new_match_predection do |f| %>
   <center>
-    <%= f.text_field :name, class: 'form-control', placeholder: "Enter Your Name", required: true %>
+    <%= f.text_field :name, class: 'form-control', placeholder: "Enter Your Name", required: true %> 
+    <%= f.text_field :password, class: 'form-control', placeholder: "Enter Your Password", required: true %>
+    <br><br><br>
+    <h1 style="text-align:center"> Today matches </h1>
     <br><br><br>
     <h1> Match <%= match_number %> </h1>
     <% end_time = all_match.count > 1 ? "3:30 PM" : "7:30 PM" %>
     <h6> You can select the team till <%= end_time %> </h6>
     <br><br><br>
-    
     <div class="row">
       <%= f.collection_radio_buttons(:winners1, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last) do |b| %>
         <div class="column">
           <div class="card">
-            <%= b.label { b.radio_button + image_tag(b.text+'.jpg', style: "width:300px") } %>
+            <%= b.label { b.radio_button(class: "checkmark") + image_tag(b.text+'.jpg', style: "width:300px;border-radius: 15px 15px 15px 15px;") } %>
             <div class="container">
-              <h3><b><%= b.text %></b></h3>
+              <h6><%= b.text %></h6>
             </div>
           </div>
         </div>
       <% end %>
     </div>
-    <div class="row">
-      <%= pie_chart MatchPredection.where(date: today_match).group(:winners1).count, donut: true%>
+    <div>
+      <%= pie_chart MatchPredection.where(date: today_match).group(:winners1).count, donut: true, height: "200px" %>
     </div>
     <br><br><br><br>
     <% match_number+= 1%>
@@ -47,16 +49,16 @@
         <%= f.collection_radio_buttons(:winners2, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last,html_options: { class: 'form-control' }) do |b| %>
           <div class="column">
             <div class="card">
-              <%= b.label { b.radio_button + image_tag(b.text+'.jpg', style: "width:300px") } %>
+              <%= b.label { b.radio_button(class: "checkmark") + image_tag(b.text+'.jpg', style: "width:300px;border-radius: 15px 15px 15px 15px;") } %>
               <div class="container">
-                <h3><b><%= b.text %></b></h3>
+                <h6><%= b.text %></h6>
               </div>
             </div>
           </div>
         <% end %>
       </div>
     <div class="row">
-      <%= pie_chart MatchPredection.where(date: today_match).group(:winners2).count, donut: true%>
+      <%= pie_chart MatchPredection.where(date: today_match).group(:winners2).count, donut: true,height: "200px"%>
     </div>
     <br><br>
     <% end %>
