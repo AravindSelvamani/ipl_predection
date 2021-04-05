@@ -36,13 +36,17 @@ class MatchPredectionsController < ApplicationController
 
   def is_match_predection_present?(match_predection_params)
     all_match_predection
-    @all_match_predection.find_by(name: match_predection_params['name'], date: Time.now.utc.strftime("%d-%b-%y") )
+    @all_match_predection.find_by(name: match_predection_params['name'], date: get_date )
   end
 
   def get_date
     today = Time.now.utc.strftime("%d-%b-%y")
     match_start_date = "9-Apr-21"
     today >= match_start_date ? today : match_start_date
+  end
+
+  def name_capitalize(match_predection_params)
+    match_predection_params['name'].capitalize!
   end
 
   def update_values(match_predection_params)
@@ -70,17 +74,18 @@ class MatchPredectionsController < ApplicationController
 
   # POST /match_predections or /match_predections.json
   def create
+    name_capitalize(match_predection_params)
     update_match_predection_params = update_values(match_predection_params)
     @match_predections = MatchPredection.all
     existing_user_data = is_match_predection_present?(update_match_predection_params)
-    
+  
     if existing_user_data
       existing_user_data.winners1 = update_match_predection_params['winners1']
       existing_user_data.winners2 = update_match_predection_params['winners2']
       existing_user_data.save!
-      
+      puts "Existing Match Predection data Updated \n #{existing_user_data}"
       respond_to do |format|
-        unless @flash_error_message.nil?
+        unless @flash_error_message.empty?
           format.html { redirect_to root_path, danger: @flash_error_message.html_safe }
         else
           format.html { redirect_to root_path, success: "Match predection was successfully updated" }
@@ -88,14 +93,15 @@ class MatchPredectionsController < ApplicationController
       end
     else
       @match_predection = MatchPredection.new(update_match_predection_params)
-      
+      puts "New created Match Predection data created"
       respond_to do |format|
         if @match_predection.save
-          unless @flash_error_message.nil?
+          unless @flash_error_message.empty?
             format.html { redirect_to root_path, danger: @flash_error_message.html_safe }
           else
             format.html { redirect_to root_path, success: "Match predection was successfully created." }
           end
+          puts "New created Match Predection data created data \n #{@match_predection}"
           create_users
         else
           format.html { render :new, status: :unprocessable_entity }

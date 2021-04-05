@@ -12,7 +12,7 @@
 <% match = all_match.first %>
 
 <%= form_for @new_match_predection do |f| %>
-  <center> 
+  <center>
     <%= f.text_field :name, class: 'form-control', placeholder: "Enter Your Name", required: true %>
     <br><br><br>
     <h1> Match <%= match_number %> </h1>
@@ -32,7 +32,10 @@
         </div>
       <% end %>
     </div>
-
+    <div class="row">
+      <%= pie_chart MatchPredection.where(date: today_match).group(:winners1).count, donut: true%>
+    </div>
+    <br><br><br><br>
     <% match_number+= 1%>
 
     <% if all_match.count > 1 %>
@@ -52,6 +55,10 @@
           </div>
         <% end %>
       </div>
+    <div class="row">
+      <%= pie_chart MatchPredection.where(date: today_match).group(:winners2).count, donut: true%>
+    </div>
+    <br><br>
     <% end %>
 
   </center>
