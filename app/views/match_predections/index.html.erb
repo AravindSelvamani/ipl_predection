@@ -1,6 +1,7 @@
 <h1 style="color:red;text-align:center;font-family:'Georgia';font-style: italic">Predict The Winning Team</h1>
 <p class="text_center"> Click on the card to select the team</p>
 <%= link_to 'Scoreboard',users_path, class: 'button' %>
+<%= link_to 'Daily Winners list',winners_path, class: 'button' %>
 <% match_number = 1%>
 <% today = Time.now.utc.strftime("%d-%b-%y") %>
 <% match_start_date = "9-Apr-21" %>

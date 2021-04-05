@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+<h1 style="color:red;text-align:center;font-family:'Georgia';font-style: italic">Daily Winners List</h1>
+
+<table id='scoreboard'>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Match details</th>
+      <th>Match1 Winners</th>
+      <th>Match2 Winners</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% WinnerTeamsUser.all.each do |winners| %>
+      <tr>
+        <td><%= winners.date %></td>
+        <td>
+          <b> Match1 details </b> <br>
+          <%= winners.match1 %> <br>
+          <b style='color:blue'>Winner: <%= winners.team1 %> </b>
+          <br>
+          <% if winners.match2.present? %>
+            <br>
+            <b> Match2 details </b> <br>
+            <%= winners.match2 %> <br>
+            <b style='color:blue'>Winner: <%= winners.team2 %> </b>
+          <% end %>
+        </td>
+        <td> <b> <%= winners.winners1 %></b> </td>
+        <td><b> <%= winners.winners2 %></b> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -34,8 +34,37 @@ class IncreasePointsController < ApplicationController
     end
   end
 
+  def get_date
+    today = Time.now.utc.strftime("%d-%b-%y")
+    match_start_date = "9-Apr-21"
+    today >= match_start_date ? today : match_start_date
+  end
+
+  def daywise_winners_list
+    winners_team = IncreasePoint.all.find_by(date: get_date)
+    match_schedule = MatchPredectionsHelper::MATCH_SCHEDULE[get_date]
+    winner_team1 = winners_team.winner1
+    winner_team2 = winners_team.winner2
+    winners2 = nil
+    matches = []
+    match_schedule.each do |match|
+      matches << "#{match['team1']} VS #{match['team2']}"
+    end
+    match1 = matches[0]
+    match2 = matches[1]
+    winners1 = MatchPredection.all.where(date: get_date, winners1: winner_team1).select('name').map{|b| b.name}.join(', ')
+    unless winner_team2.empty?
+      winners2 = MatchPredection.all.where(date: get_date, winners2: winner_team2).select('name').map{|b| b.name}.join(', ')
+    end
+    winners_list = WinnerTeamsUser.new({date: get_date, winners1: winners1, winners2: winners2,match1: match1, match2: match2, team1: winner_team1,team2: winner_team2})
+    winners_list.save!
+  end
+
+  def view_winners
+  end
+
   def check_password(increase_point_params)
-    increase_point_params['password'] == ENV['PASSWORD']
+    increase_point_params['password'] == '123'
   end
 
   # GET /increase_points/1/edit
@@ -51,6 +80,7 @@ class IncreasePointsController < ApplicationController
         if @increase_point.save
           format.html { redirect_to root_path, success: "Increase point was successfully created." }
           increase_user_points
+          daywise_winners_list
         else
           format.html { render :new, danger: :unprocessable_entity }
         end

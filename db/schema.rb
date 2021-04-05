@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_093554) do
+ActiveRecord::Schema.define(version: 2021_04_05_150704) do
 
   create_table "increase_points", force: :cascade do |t|
     t.string "date"
@@ -37,6 +37,18 @@ ActiveRecord::Schema.define(version: 2021_04_05_093554) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password"
+  end
+
+  create_table "winner_teams_users", force: :cascade do |t|
+    t.string "date"
+    t.string "winners1"
+    t.string "winners2"
+    t.string "team1"
+    t.string "team2"
+    t.string "match1"
+    t.string "match2"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

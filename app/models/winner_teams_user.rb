@@ -1,0 +1,2 @@
+class WinnerTeamsUser < ApplicationRecord
+end
