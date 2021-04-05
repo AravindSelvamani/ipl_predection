@@ -51,7 +51,7 @@ class MatchPredectionsController < ApplicationController
 
   def update_values(match_predection_params)
     all_match_predection
-    match_schedule = HomeHelper::MATCH_SCHEDULE[get_date]
+    match_schedule = MatchPredectionsHelper::MATCH_SCHEDULE[get_date]
     @flash_error_message = ""
     match_schedule.each_with_index do |match, i|
       unless match['start_time'] > Time.now.utc

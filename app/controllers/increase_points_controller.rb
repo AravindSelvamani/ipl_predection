@@ -49,38 +49,36 @@ class IncreasePointsController < ApplicationController
 
       respond_to do |format|
         if @increase_point.save
-          format.html { redirect_to @increase_point, notice: "Increase point was successfully created." }
-          format.json { render :show, status: :created, location: @increase_point }
+          format.html { redirect_to root_path, success: "Increase point was successfully created." }
           increase_user_points
         else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @increase_point.errors, status: :unprocessable_entity }
+          format.html { render :new, danger: :unprocessable_entity }
         end
       end
     end
   end
 
   # PATCH/PUT /increase_points/1 or /increase_points/1.json
-  def update
-    respond_to do |format|
-      if @increase_point.update(increase_point_params)
-        format.html { redirect_to @increase_point, notice: "Increase point was successfully updated." }
-        format.json { render :show, status: :ok, location: @increase_point }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @increase_point.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @increase_point.update(increase_point_params)
+  #       format.html { redirect_to @increase_point, notice: "Increase point was successfully updated." }
+  #       format.json { render :show, status: :ok, location: @increase_point }
+  #     else
+  #       format.html { render :edit, status: :unprocessable_entity }
+  #       format.json { render json: @increase_point.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /increase_points/1 or /increase_points/1.json
-  def destroy
-    @increase_point.destroy
-    respond_to do |format|
-      format.html { redirect_to increase_points_url, notice: "Increase point was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @increase_point.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to increase_points_url, notice: "Increase point was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

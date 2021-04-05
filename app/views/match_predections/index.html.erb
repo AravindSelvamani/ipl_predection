@@ -8,7 +8,7 @@
 <h1 style="text-align:center"> Today matches </h1>
 <br><br><br>
 <% today_match = today >= match_start_date ? today : match_start_date %>
-<% all_match = HomeHelper::MATCH_SCHEDULE[today_match] %>
+<% all_match = MatchPredectionsHelper::MATCH_SCHEDULE[today_match] %>
 <% match = all_match.first %>
 
 <%= form_for @new_match_predection do |f| %>
