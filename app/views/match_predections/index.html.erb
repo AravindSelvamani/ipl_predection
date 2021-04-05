@@ -26,7 +26,7 @@
       <%= f.collection_radio_buttons(:winners1, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last) do |b| %>
         <div class="column">
           <div class="card">
-            <%= b.label { b.radio_button(class: "checkmark") + image_tag(b.text+'.jpg', style: "width:300px;border-radius: 15px 15px 15px 15px;") } %>
+            <%= b.label { b.radio_button(class: "checkmark",checked: true,required: true) + image_tag(b.text+'.jpg', style: "width:300px;border-radius: 15px 15px 15px 15px;") } %>
             <div class="container">
               <h6><%= b.text %></h6>
             </div>
@@ -49,7 +49,7 @@
         <%= f.collection_radio_buttons(:winners2, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last,html_options: { class: 'form-control' }) do |b| %>
           <div class="column">
             <div class="card">
-              <%= b.label { b.radio_button(class: "checkmark") + image_tag(b.text+'.jpg', style: "width:300px;border-radius: 15px 15px 15px 15px;") } %>
+              <%= b.label { b.radio_button(class: "checkmark",checked: true,required: true) + image_tag(b.text+'.jpg', style: "width:300px;border-radius: 15px 15px 15px 15px;") } %>
               <div class="container">
                 <h6><%= b.text %></h6>
               </div>
