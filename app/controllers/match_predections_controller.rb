@@ -90,32 +90,45 @@ class MatchPredectionsController < ApplicationController
       if existing_user_data
           existing_user_data.winners1 = update_match_predection_params['winners1']
           existing_user_data.winners2 = update_match_predection_params['winners2']
-          existing_user_data.save!
-          puts "Existing Match Predection data Updated \n #{existing_user_data}"
-          respond_to do |format|
-            unless @flash_error_message.empty?
-              format.html { redirect_to root_path, danger: @flash_error_message.html_safe }
-            else
-              format.html { redirect_to root_path, success: "Match predection was successfully updated" }
+          if !(update_match_predection_params['winners1'].nil? && update_match_predection_params['winners2'].nil?)
+            existing_user_data.save!
+            puts "Existing Match Predection data Updated \n #{existing_user_data}"
+            respond_to do |format|
+              unless @flash_error_message.empty?
+                format.html { redirect_to root_path, danger: @flash_error_message.html_safe }
+              else
+                format.html { redirect_to root_path, success: "Match predection was successfully updated" }
+              end
             end
-          end      
+          else 
+            respond_to do |format|
+              format.html { redirect_to root_path, danger: @flash_error_message.html_safe }
+            end     
+          end
       else
         @match_predection = MatchPredection.new(update_match_predection_params)
         puts "New created Match Predection data created"
-        respond_to do |format|
-          if @match_predection.save
-            unless @flash_error_message.empty?
-              format.html { redirect_to root_path, danger: @flash_error_message.html_safe }
+        if !(update_match_predection_params['winners1'].nil? && update_match_predection_params['winners2'].nil?)
+          respond_to do |format|
+            if @match_predection.save
+              unless @flash_error_message.empty?
+                format.html { redirect_to root_path, danger: @flash_error_message.html_safe }
+              else
+                format.html { redirect_to root_path, success: "Match predection was successfully created." }
+              end
+              puts "New created Match Predection data created data \n #{@match_predection}"
+              create_users
             else
-              format.html { redirect_to root_path, success: "Match predection was successfully created." }
+              format.html { render :new, status: :unprocessable_entity }
+              format.json { render json: @match_predection.errors, status: :unprocessable_entity }
             end
-            puts "New created Match Predection data created data \n #{@match_predection}"
-            create_users
-          else
-            format.html { render :new, status: :unprocessable_entity }
-            format.json { render json: @match_predection.errors, status: :unprocessable_entity }
           end
+        else
+          respond_to do |format|
+              format.html { redirect_to root_path, danger: @flash_error_message.html_safe }
+            end     
         end
+        
       end
     else
       puts "Password incorrect"
