@@ -10,28 +10,25 @@
       </ul>
     </div>
   <% end %>
-
+<center>
   <div class="field">
-    <%= form.label :date %>
-    <%= form.text_field :date %>
+    <%= form.text_field :date, class: 'form-control', placeholder: "Enter Match date" %>
   </div>
 
   <div class="field">
-    <%= form.label :winner1 %>
-    <%= form.text_field :winner1 %>
+    <%= form.text_field :winner1, class: 'form-control', placeholder: "Enter Match1 Winner"  %>
   </div>
 
   <div class="field">
-    <%= form.label :winner2 %>
-    <%= form.text_field :winner2 %>
+    <%= form.text_field :winner2, class: 'form-control', placeholder: "Enter Match2 Winner" %>
   </div>
 
   <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password %>
+    <%= form.password_field :password, class: 'form-control', placeholder: "Enter Password" %>
   </div>
 
+  </center>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Submit', class: 'save_button' %>
   </div>
 <% end %>

@@ -64,7 +64,7 @@ class IncreasePointsController < ApplicationController
   end
 
   def check_password(increase_point_params)
-    increase_point_params['password'] == '123'
+    increase_point_params['password'] == ENV['PASSWORD']
   end
 
   # GET /increase_points/1/edit
