@@ -6,7 +6,6 @@
 <% today = Time.now.utc.strftime("%d-%b-%y") %>
 <% match_start_date = "9-Apr-21" %>
 <br><br><br>
-
 <br><br><br>
 <% today_match = today >= match_start_date ? today : match_start_date %>
 <% all_match = MatchPredectionsHelper::MATCH_SCHEDULE[today_match] %>
@@ -36,7 +35,16 @@
       <% end %>
     </div>
     <div>
-      <%= pie_chart MatchPredection.where(date: today_match).group(:winners1).count, donut: true, height: "200px" %>
+      <% winners1_data = MatchPredection.where(date: today_match).group(:winners1).count %>
+      <% total = winners1_data.values.sum %>
+      <% winner_percentage = winners1_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
+      <div class="progress" style="height: 25px;width: 60%">
+        <div class="progress-bar bg-info" role="progressbar" style="width:<%= winner_percentage.values.first %>%" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100"><%= winner_percentage.keys.first.split.map(&:first).join %> <%= winner_percentage.values.first %>%</div>
+        <% if winner_percentage.values.second %>
+          <div class="progress-bar bg-danger" style="width: <%= winner_percentage.values.second %>%" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100"><%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%</div>
+        <% end %>
+      </div>
+      <br><br>
     </div>
     <br><br><br><br>
     <% match_number+= 1%>
@@ -58,8 +66,16 @@
           </div>
         <% end %>
       </div>
-    <div class="row">
-      <%= pie_chart MatchPredection.where(date: today_match).group(:winners2).count, donut: true,height: "200px"%>
+    <div>
+      <% winners2_data = MatchPredection.where(date: today_match).group(:winners2).count %>
+      <% total = winners2_data.values.sum %>
+      <% winner_percentage = winners2_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
+      <div class="progress" style="height: 25px;width: 60%">
+        <div class="progress-bar bg-info" role="progressbar" style="width:<%= winner_percentage.values.first %>%" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100"><%= winner_percentage.keys.first.split.map(&:first).join %> <%= winner_percentage.values.first %>%</div>
+        <% if winner_percentage.values.second %>
+          <div class="progress-bar bg-danger" style="width: <%= winner_percentage.values.second %>%" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100"><%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%</div>
+        <% end %>
+      </div>
     </div>
     <br><br>
     <% end %>
