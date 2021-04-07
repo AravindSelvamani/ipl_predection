@@ -38,6 +38,7 @@
   margin-bottom: 50%;
   margin-left: 50%;
   border-radius: 15px;
+  
   /* Added */
 
 }
@@ -64,13 +65,14 @@
 .button {
   background-color: #20c1e9;
   /* Green */
-  // border: none;
+  border-radius: 55px ;
   // color: blue;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  // font-weight: bold;
   // float: right;
 }
 
@@ -78,6 +80,7 @@
   width: 20%;
   padding: 12px 20px;
   margin: 8px 0;
+  border-radius: 15px;
   box-sizing: border-box;
   font-weight: bold;
   text-align: center;
@@ -102,8 +105,8 @@
   display: inline-block;
   font-size: 16px;
   position: relative;
-  top:50%;
-  left:47%;
+  // top:50%;
+  // left:44%;
 }
 
 .checkmark {
