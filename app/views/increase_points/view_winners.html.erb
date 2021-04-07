@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+<h1 style="color:red;text-align:center;font-family:'Georgia';font-style: italic">Daily Winners List</h1>
+<%= link_to 'Home',root_path, class: 'button' %>
+<%= link_to 'Scoreboard',users_path, class: 'button' %>
+<br><br><br>
+<table id='scoreboard'>
+  <thead>
+    <tr>
+      <th rowspan="2">No</th>
+      <th rowspan="2">Date</th>
+      <th colspan="2">Match details</th>
+      <th colspan="2">Winners</th>
+    </tr>
+    <tr>
+      <th>Match1</th>
+      <th>Match2</th>
+      <th>Match1</th>
+      <th>Match2</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% WinnerTeamsUser.all.each_with_index do |winners, i| %>
+      <tr>
+        <td> <%= i+1 %> </td>
+        <td><%= winners.date %></td>
+        <td>
+          <%= winners.match1 %> <br>
+          <b>Winner:<span style='color:blue'> <%= winners.team1 %></span> </b>
+        </td>
+        <td>
+          <% if winners.match2.present? %>
+            <%= winners.match2 %> <br>
+            <b>Winner:<span style='color:blue'> <%= winners.team2 %></span> </b>
+          <% else %>
+            No Match 
+          <% end %>
+        </td>
+        <td> 
+          <% if winners.winners1.present? %>
+            <b> <%= winners.winners1 %></b> 
+            <% else %>
+              No Winners 
+          <%end%>
+        </td>
+        <td>
+          <% if winners.match2.present? %>
+            <% if winners.winners2.present? %>
+              <b> <%= winners.winners2 %></b> 
+            <% else %>
+              No Winners 
+            <%end%>
+          <% else %>
+            No Match 
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,10 +1,12 @@
 <p id="notice"><%= notice %></p>
-<h1 style="color:red;text-align:center;font-family:'Georgia'">Scoreboard</h1>
-
+<h1 style="color:red;text-align:center;font-family:'Georgia';font-style: italic">Scoreboard</h1>
+<%= link_to 'Home',root_path, class: 'button' %>
+<%= link_to 'Daily Winners list',winners_path, class: 'button' %>
+<br><br><br>
 <table id='scoreboard'>
   <thead>
     <tr>
-      <th>Rank</th>
+      <th>Rank <span style="font-size: 150%">🏆</span> </th>
       <th>Players</th>
       <th>Point</th>
     </tr>
@@ -13,9 +15,27 @@
   <tbody>
     <% @users.each_with_index do |user, i| %>
       <tr>
-        <td><%= i+1 %></td>
-        <td><%= user.name %></td>
-        <td><%= user.point %></td>
+        <td>
+          <%if i ==0 %>
+          <%= i+1 %>
+          <% else %>
+            <%= i+1 %>
+          <%end%>
+        </td>
+        
+        <td>
+          <%if i ==0 %>
+            <b><%= user.name %></b><span style="font-size: 200%">🥇</span>
+            <%elsif i==1%>
+            <b><%= user.name %></b><span style="font-size: 200%">🥈</span>
+            <%elsif i==2%>
+            <b><%= user.name %></b><span style="font-size: 200%">🥉</span>
+          <% else %>
+            <%= user.name %>
+          <%end%>
+        </td>
+        
+        <td style='color:blue'><b><%= user.point %></b></td>
       </tr>
     <% end %>
   </tbody>
