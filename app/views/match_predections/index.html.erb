@@ -1,11 +1,13 @@
 <h1 style="color:red;text-align:center;font-family:'Georgia';font-style: italic">Predict The Winning Team</h1>
 <p class="text_center"> Click on the card to select the team</p>
+<br><br><br>
+<center>
 <%= link_to 'Scoreboard',users_path, class: 'button' %>
 <%= link_to 'Daily Winners list',winners_path, class: 'button' %>
+</center>
 <% match_number = 1%>
 <% today = Time.now.utc.strftime("%d-%b-%y") %>
 <% match_start_date = "9-Apr-21" %>
-<br><br><br>
 <br><br><br>
 <% today_match = today >= match_start_date ? today : match_start_date %>
 <% all_match = MatchPredectionsHelper::MATCH_SCHEDULE[today_match] %>
@@ -38,10 +40,10 @@
       <% winners1_data = MatchPredection.where(date: today_match).group(:winners1).count %>
       <% total = winners1_data.values.sum %>
       <% winner_percentage = winners1_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
-      <div class="progress" style="height: 25px;width: 60%">
-        <div class="progress-bar bg-info" role="progressbar" style="width:<%= winner_percentage.values.first %>%" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100"><%= winner_percentage.keys.first.split.map(&:first).join %> <%= winner_percentage.values.first %>%</div>
+      <div class="progress" style="height: 25px;width: 70%;border-radius: 55px">
+        <div class="progress-bar bg-info" role="progressbar" style="width:<%= winner_percentage.values.first %>%" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100"><b><%= winner_percentage.keys.first.split.map(&:first).join %>  <%= winner_percentage.values.first %>% </b></div>
         <% if winner_percentage.values.second %>
-          <div class="progress-bar bg-danger" style="width: <%= winner_percentage.values.second %>%" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100"><%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%</div>
+          <div class="progress-bar bg-danger" style="width: <%= winner_percentage.values.second %>%" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100"><b><%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%</b></div>
         <% end %>
       </div>
       <br><br>
@@ -70,10 +72,10 @@
       <% winners2_data = MatchPredection.where(date: today_match).group(:winners2).count %>
       <% total = winners2_data.values.sum %>
       <% winner_percentage = winners2_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
-      <div class="progress" style="height: 25px;width: 60%">
-        <div class="progress-bar bg-info" role="progressbar" style="width:<%= winner_percentage.values.first %>%" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100"><%= winner_percentage.keys.first.split.map(&:first).join %> <%= winner_percentage.values.first %>%</div>
+      <div class="progress" style="height: 25px;width: 70%;border-radius: 55px;">
+        <div class="progress-bar bg-info" role="progressbar" style="width:<%= winner_percentage.values.first %>%" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100"><b><%= winner_percentage.keys.first.split.map(&:first).join %> <%= winner_percentage.values.first %>%</b></div>
         <% if winner_percentage.values.second %>
-          <div class="progress-bar bg-danger" style="width: <%= winner_percentage.values.second %>%" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100"><%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%</div>
+          <div class="progress-bar bg-danger" style="width: <%= winner_percentage.values.second %>%" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100"><b><%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%</b></div>
         <% end %>
       </div>
     </div>
