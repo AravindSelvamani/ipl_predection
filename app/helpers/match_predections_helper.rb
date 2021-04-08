@@ -61,4 +61,15 @@ module MatchPredectionsHelper
     # '28-May-21'=>  [ {'team1' =>'', 'team2'=>'', 'start_time'=>'14:00'}],
     # '30-May-21'=>  [ {'team1' =>'', 'team2'=>'', 'start_time'=>'14:00'}]
   }
+
+  TEAM_COLOR = { 
+    'Mumbai Indians' => '#004ba0',
+    'Chennai Super Kings' => '#fcce06',
+    'Kolkata Knight Riders' => '#3a225d',
+    'Punjab Kings'=> '#f04a4a',
+    'Rajasthan Royals'=>'#e73895',
+    'Delhi Capitals'=>'#00008b',
+    'Sunrisers Hyderabad'=>'#FF822A',
+    'Royal Challengers Bangalore' => '#d5152c'
+   }
 end

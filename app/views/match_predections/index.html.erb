@@ -12,6 +12,7 @@
 <% today_match = today >= match_start_date ? today : match_start_date %>
 <% all_match = MatchPredectionsHelper::MATCH_SCHEDULE[today_match] %>
 <% match = all_match.first %>
+<% team_color = MatchPredectionsHelper::TEAM_COLOR %>
 
 <%= form_for @new_match_predection do |f| %>
   <center>
@@ -24,6 +25,7 @@
     <% end_time = all_match.count > 1 ? "3:30 PM" : "7:30 PM" %>
     <h6> You can select the team till <%= end_time %> </h6>
     <br><br><br>
+    
     <div class="row">
       <%= f.collection_radio_buttons(:winners1, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last) do |b| %>
         <div class="column">
@@ -36,18 +38,29 @@
         </div>
       <% end %>
     </div>
+
     <div>
       <% winners1_data = MatchPredection.where(date: today_match).group(:winners1).count %>
       <% total = winners1_data.values.sum %>
       <% winner_percentage = winners1_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
-      <div class="progress" style="height: 25px;width: 70%;border-radius: 55px">
-        <div class="progress-bar bg-info" role="progressbar" style="width:<%= winner_percentage.values.first %>%" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100"><b><%= winner_percentage.keys.first.split.map(&:first).join %>  <%= winner_percentage.values.first %>% </b></div>
-        <% if winner_percentage.values.second %>
-          <div class="progress-bar bg-danger" style="width: <%= winner_percentage.values.second %>%" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100"><b><%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%</b></div>
-        <% end %>
-      </div>
-      <br><br>
+      <% unless winner_percentage.empty? %>
+        <div class="progress" style="height: 25px;width: 70%;border-radius: 55px">
+          <div class="progress-bar" role="progressbar" style="width:<%= winner_percentage.values.first %>%;background-color: <%= team_color[winner_percentage.keys.first]%>" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100">
+            <b>
+              <%= winner_percentage.keys.first.split.map(&:first).join %>  
+              <%= winner_percentage.values.first %>%
+            </b>
+          </div>
+          <% if winner_percentage.values.second %>
+            <div class="progress-bar" style="width: <%= winner_percentage.values.second %>%;background-color: <%= team_color[winner_percentage.keys.second]%>" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100">
+              <b>
+                <%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%
+              </b>
+            </div>
+          <% end %>
+        </div>
     </div>
+    <% end %>
     <br><br><br><br>
     <% match_number+= 1%>
 
@@ -56,6 +69,7 @@
       <h1> Match <%= match_number %> </h1>
       <h6> You can select the team till 7:30 PM </h6>
       <br><br><br>
+      
       <div class="row">
         <%= f.collection_radio_buttons(:winners2, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last,html_options: { class: 'form-control' }) do |b| %>
           <div class="column">
@@ -68,20 +82,33 @@
           </div>
         <% end %>
       </div>
-    <div>
-      <% winners2_data = MatchPredection.where(date: today_match).group(:winners2).count %>
-      <% total = winners2_data.values.sum %>
-      <% winner_percentage = winners2_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
-      <div class="progress" style="height: 25px;width: 70%;border-radius: 55px;">
-        <div class="progress-bar bg-info" role="progressbar" style="width:<%= winner_percentage.values.first %>%" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100"><b><%= winner_percentage.keys.first.split.map(&:first).join %> <%= winner_percentage.values.first %>%</b></div>
-        <% if winner_percentage.values.second %>
-          <div class="progress-bar bg-danger" style="width: <%= winner_percentage.values.second %>%" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100"><b><%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%</b></div>
+
+      <div>
+        <% winners2_data = MatchPredection.where(date: today_match).group(:winners2).count %>
+        <% total = winners2_data.values.sum %>
+        <% winner_percentage = winners2_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
+        <% unless winner_percentage.empty? %>
+          <div class="progress" style="height: 25px;width: 70%;border-radius: 55px;">
+            <div class="progress-bar" role="progressbar" style="width:<%= winner_percentage.values.first %>%;background-color: <%= team_color[winner_percentage.keys.first]%>" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100">
+              <b>
+                <%= winner_percentage.keys.first.split.map(&:first).join %> <%= winner_percentage.values.first %>%
+              </b>
+            </div>
+              <% if winner_percentage.values.second %>
+                <div class="progress-bar" style="width: <%= winner_percentage.values.second %>%;background-color: <%= team_color[winner_percentage.keys.second]%>" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100">
+                  <b>
+                    <%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%
+                  </b>
+                </div>
+              <% end %>
+          </div>
         <% end %>
       </div>
-    </div>
-    <br><br>
+      
+      <br><br>
     <% end %>
-  <%= f.submit "Submit", class: 'save_button' %>
+  
+    <%= f.submit "Submit", class: 'save_button' %>
   </center>
   
 <% end %>
