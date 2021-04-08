@@ -45,14 +45,14 @@
       <% winner_percentage = winners1_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
       <% unless winner_percentage.empty? %>
         <div class="progress" style="height: 25px;width: 70%;border-radius: 55px">
-          <div class="progress-bar" role="progressbar" style="width:<%= winner_percentage.values.first %>%;background-color: <%= team_color[winner_percentage.keys.first]%>" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:<%= winner_percentage.values.first %>%;background-color: <%= team_color[winner_percentage.keys.first]%>" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100">
             <b>
               <%= winner_percentage.keys.first.split.map(&:first).join %>  
               <%= winner_percentage.values.first %>%
             </b>
           </div>
           <% if winner_percentage.values.second %>
-            <div class="progress-bar" style="width: <%= winner_percentage.values.second %>%;background-color: <%= team_color[winner_percentage.keys.second]%>" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: <%= winner_percentage.values.second %>%;background-color: <%= team_color[winner_percentage.keys.second]%>" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100">
               <b>
                 <%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%
               </b>
@@ -89,13 +89,13 @@
         <% winner_percentage = winners2_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
         <% unless winner_percentage.empty? %>
           <div class="progress" style="height: 25px;width: 70%;border-radius: 55px;">
-            <div class="progress-bar" role="progressbar" style="width:<%= winner_percentage.values.first %>%;background-color: <%= team_color[winner_percentage.keys.first]%>" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:<%= winner_percentage.values.first %>%;background-color: <%= team_color[winner_percentage.keys.first]%>" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100">
               <b>
                 <%= winner_percentage.keys.first.split.map(&:first).join %> <%= winner_percentage.values.first %>%
               </b>
             </div>
               <% if winner_percentage.values.second %>
-                <div class="progress-bar" style="width: <%= winner_percentage.values.second %>%;background-color: <%= team_color[winner_percentage.keys.second]%>" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: <%= winner_percentage.values.second %>%;background-color: <%= team_color[winner_percentage.keys.second]%>" role="progressbar" aria-valuenow="<%= winner_percentage.values.second %>" aria-valuemin="0" aria-valuemax="100">
                   <b>
                     <%= winner_percentage.keys.second.split.map(&:first).join %> <%= winner_percentage.values.second %>%
                   </b>

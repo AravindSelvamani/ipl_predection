@@ -111,6 +111,14 @@
   // left:44%;
 }
 
+body {
+  // background-color: #e4f1f2;
+  background: linear-gradient(rgba(228, 241, 242, 0.9), rgba(228, 241, 242, 0.5)),image-url('bg.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 .checkmark {
   position: absolute;
   top: 0;
