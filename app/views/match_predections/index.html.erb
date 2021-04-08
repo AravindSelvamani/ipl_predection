@@ -1,9 +1,9 @@
-<h1 style="color:red;text-align:center;font-family:'Georgia';font-style: italic">Predict The Winning Team</h1>
+<h1 style="color:red;text-align:center;font-family:'Georgia';font-style: italic"><b>Predict The Winning Team</b></h1>
 <p class="text_center"> Click on the card to select the team</p>
 <br><br><br>
 <center>
-<%= link_to 'Scoreboard',users_path, class: 'button' %>
-<%= link_to 'Daily Winners list',winners_path, class: 'button' %>
+<b><%= link_to 'Scoreboard',users_path, class: 'button' %></b>
+<b><%= link_to 'Daily Winners list',winners_path, class: 'button' %></b>
 </center>
 <% match_number = 1%>
 <% today = Time.now.utc.strftime("%d-%b-%y") %>
