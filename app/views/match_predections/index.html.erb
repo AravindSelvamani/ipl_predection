@@ -13,11 +13,21 @@
 <% all_match = MatchPredectionsHelper::MATCH_SCHEDULE[today_match] %>
 <% match = all_match.first %>
 <% team_color = MatchPredectionsHelper::TEAM_COLOR %>
-
+<script>
+  function myFunction() {
+  var x = document.getElementById("match_predection_password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
 <%= form_for @new_match_predection do |f| %>
   <center>
     <%= f.text_field :name, class: 'form-control', placeholder: "Enter Your Name", required: true %> 
     <%= f.password_field :password, class: 'form-control', placeholder: "Enter Your Password", required: true %>
+    <input class="form-check-input" type="checkbox" onclick="myFunction()">Show Password
     <br><br><br>
     <h1 style="text-align:center"> <%= today_match %> Matches </h1>
     <br><br><br>
