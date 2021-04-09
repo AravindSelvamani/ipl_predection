@@ -72,4 +72,10 @@ module MatchPredectionsHelper
     'Sunrisers Hyderabad'=>'#FF822A',
     'Royal Challengers Bangalore' => '#d5152c'
    }
+
+   def self.get_date
+      today = Time.now.strftime("%d-%b-%y")
+      match_start_date = "9-Apr-21"
+      Date.parse(today) >= Date.parse(match_start_date) ? today : match_start_date
+   end
 end

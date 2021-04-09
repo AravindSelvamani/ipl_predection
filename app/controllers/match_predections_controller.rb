@@ -37,7 +37,7 @@ class MatchPredectionsController < ApplicationController
 
   def is_match_predection_present?(match_predection_params)
     all_match_predection
-    @all_match_predection.find_by(name: match_predection_params['name'], date: get_date )
+    @all_match_predection.find_by(name: match_predection_params['name'], date: MatchPredectionsHelper.get_date )
   end
 
   def find_user(name)
@@ -45,11 +45,11 @@ class MatchPredectionsController < ApplicationController
     @users.find_by_name(name)
   end
 
-  def get_date
-    today = Time.now.utc.strftime("%d-%b-%y")
-    match_start_date = "9-Apr-21"
-    today >= match_start_date ? today : match_start_date
-  end
+  # def get_date
+  #   today = Time.now.strftime("%d-%b-%y")
+  #   match_start_date = "9-Apr-21"
+  #   today >= match_start_date ? today : match_start_date
+  # end
 
   def name_capitalize(match_predection_params)
     match_predection_params['name'].capitalize!
@@ -57,10 +57,11 @@ class MatchPredectionsController < ApplicationController
 
   def update_values(match_predection_params)
     all_match_predection
+    get_date = MatchPredectionsHelper.get_date
     match_schedule = MatchPredectionsHelper::MATCH_SCHEDULE[get_date]
     @flash_error_message = ""
     match_schedule.each_with_index do |match, i|
-      unless (match['start_time'] > Time.now.utc || Time.parse(get_date) > Time.now.utc)
+      unless (match['start_time'] > Time.now.strftime("%H:%M") || Time.parse(get_date) > Time.now)
         existing_data = is_match_predection_present?(match_predection_params)
         if existing_data
           current_value = existing_data["winners#{i+1}"]

@@ -34,13 +34,14 @@ class IncreasePointsController < ApplicationController
     end
   end
 
-  def get_date
-    today = Time.now.utc.strftime("%d-%b-%y")
-    match_start_date = "9-Apr-21"
-    today >= match_start_date ? today : match_start_date
-  end
+  # def get_date
+  #   today = Time.now.utc.strftime("%d-%b-%y")
+  #   match_start_date = "9-Apr-21"
+  #   today >= match_start_date ? today : match_start_date
+  # end
 
   def daywise_winners_list
+    get_date = MatchPredectionsHelper.get_date
     winners_team = IncreasePoint.all.find_by(date: get_date)
     match_schedule = MatchPredectionsHelper::MATCH_SCHEDULE[get_date]
     winner_team1 = winners_team.winner1

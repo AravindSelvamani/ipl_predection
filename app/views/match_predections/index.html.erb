@@ -6,10 +6,10 @@
 <b><%= link_to 'Daily Winners list',winners_path, class: 'button' %></b>
 </center>
 <% match_number = 1%>
-<% today = Time.now.utc.strftime("%d-%b-%y") %>
+<% today = Time.now.strftime("%d-%b-%y") %>
 <% match_start_date = "9-Apr-21" %>
 <br><br><br>
-<% today_match = today >= match_start_date ? today : match_start_date %>
+<% today_match = Date.parse(today) >= Date.parse(match_start_date) ? today : match_start_date %>
 <% all_match = MatchPredectionsHelper::MATCH_SCHEDULE[today_match] %>
 <% match = all_match.first %>
 <% team_color = MatchPredectionsHelper::TEAM_COLOR %>
