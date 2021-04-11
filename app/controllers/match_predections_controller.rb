@@ -61,7 +61,7 @@ class MatchPredectionsController < ApplicationController
     match_schedule = MatchPredectionsHelper::MATCH_SCHEDULE[get_date]
     @flash_error_message = ""
     match_schedule.each_with_index do |match, i|
-      unless (match['start_time'] > Time.now.strftime("%H:%M") || Time.parse(get_date) > Time.now)
+      unless (match['start_time'] > Time.now.utc.strftime("%H:%M") || Time.parse(get_date) > Time.now)
         existing_data = is_match_predection_present?(match_predection_params)
         if existing_data
           current_value = existing_data["winners#{i+1}"]
