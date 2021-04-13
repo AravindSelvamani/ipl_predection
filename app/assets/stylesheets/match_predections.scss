@@ -77,6 +77,10 @@
   // float: right;
 }
 
+.captitalize {
+  text-transform: capitalize;
+}
+
 .form-control {
   width: 30%;
   padding: 12px 20px;
@@ -85,7 +89,6 @@
   box-sizing: border-box;
   font-weight: bold;
   text-align: center;
-  text-transform: capitalize;
 }
 
 .name_class {
