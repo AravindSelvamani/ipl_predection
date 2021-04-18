@@ -51,6 +51,7 @@
 
     <div>
       <% winners1_data = MatchPredection.where(date: today_match).group(:winners1).count %>
+      <% winners1_data = winners1_data.invert.compact.invert %>
       <% total = winners1_data.values.sum %>
       <% winner_percentage = winners1_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
       <% unless winner_percentage.empty? %>
