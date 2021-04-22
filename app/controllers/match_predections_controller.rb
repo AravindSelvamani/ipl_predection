@@ -20,8 +20,8 @@ class MatchPredectionsController < ApplicationController
   end
 
   def create_users
-    name = @match_predection.name
-    password = @match_predection.password
+    name = @match_predection.name.strip
+    password = @match_predection.password.strip
     user_data = find_user(name)
     unless user_data
       user_data = {"name"=>name.capitalize, "point"=>0, "password"=>password}
