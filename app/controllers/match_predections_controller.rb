@@ -107,6 +107,7 @@ class MatchPredectionsController < ApplicationController
             end     
           end
       else
+        update_match_predection_params['name'] = update_match_predection_params['name'].strip
         @match_predection = MatchPredection.new(update_match_predection_params)
         puts "New created Match Predection data created"
         if !(update_match_predection_params['winners1'].nil? && update_match_predection_params['winners2'].nil?)
