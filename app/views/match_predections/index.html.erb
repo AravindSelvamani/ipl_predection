@@ -50,12 +50,14 @@
     </div>
 
     <div>
-      <% winners1_data = MatchPredection.where(date: today_match).group(:winners1).count %>
+      <% match_predection_data = MatchPredection.where(date: today_match) %>
+      <% winners1_data = match_predection_data.group(:winners1).count %>
       <% winners1_data.delete_if{|k,v| k.class == nil.class } %>
       <% total = winners1_data.values.sum %>
       <% winner_percentage = winners1_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
+      <% user_names = match_predection_data.collect(&:name) %>
       <% unless winner_percentage.empty? %>
-        
+        <p class="text-muted"> <b> Participants: </b> <%= user_names.join(',') %> </p>
         <div class="progress" style="height: 25px;width: 70%;border-radius: 55px">
           
           <% if winner_percentage.values.second %>
