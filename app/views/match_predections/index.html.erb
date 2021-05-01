@@ -1,104 +1,46 @@
-<h1 style="color:red;text-align:center;font-family:'Georgia';font-style: italic"><b>Predict The Winning Team</b></h1>
+<h1 style="color:red;text-align:center;font-family:'Georgia';font-style: italic">
+  <b>Predict The Winning Team </b>
+</h1>
 <p class="text_center"> Click on the card to select the team</p>
 <br><br><br>
 <center>
-<b><%= link_to 'Scoreboard',users_path, class: 'button' %></b>
-<b><%= link_to 'Daily Winners list',winners_path, class: 'button' %></b>
+  <b><%= link_to 'Scoreboard',users_path, class: 'button' %></b>
+  <b><%= link_to 'Daily Winners list',winners_path, class: 'button' %></b>
 </center>
 <% match_number = 1%>
-<% today = Time.now.in_time_zone("Chennai").strftime("%d-%b-%y") %>
+<% today = Time.now.in_time_zone("Chennai").strftime("%-d-%b-%y") %>
 <% match_start_date = "9-Apr-21" %>
 <br><br><br>
 <% today_match = Date.parse(today) >= Date.parse(match_start_date) ? today : match_start_date %>
 <% all_match = MatchPredectionsHelper::MATCH_SCHEDULE[today_match] %>
-<% match = all_match.first %>
-<% team_color = MatchPredectionsHelper::TEAM_COLOR %>
-<script>
-  function myFunction() {
-  var x = document.getElementById("match_predection_password");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
+<% unless all_match.nil? %>
+  <% match = all_match.first %>
+  <% team_color = MatchPredectionsHelper::TEAM_COLOR %>
+  <script>
+    function myFunction() {
+    var x = document.getElementById("match_predection_password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
   }
-}
-</script>
-<%= form_for @new_match_predection do |f| %>
-  <center>
-    <%= f.text_field :name, class: 'form-control captitalize', placeholder: "Enter Your Name", required: true %> 
-    <%= f.password_field :password, class: 'form-control', placeholder: "Enter Your Password", required: true %>
-    <input class="form-check-input" type="checkbox" onclick="myFunction()">Show Password
-    <br><br><br>
-    <h1 style="text-align:center"> <%= today_match %> Matches </h1>
-    <br><br><br>
-    <h1> Match <%= match_number %> </h1>
-    <% end_time = all_match.count > 1 ? "3:30 PM" : "7:30 PM" %>
-    <h6> You can select the team till <%= end_time %> </h6>
-    <br><br><br>
-    
-    <div class="row">
-      <%= f.collection_radio_buttons(:winners1, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last) do |b| %>
-        <div class="column">
-          <div class="card">
-            <%= b.label { b.radio_button(class: "checkmark",checked: true,required: true) + image_tag(b.text+'.jpg', style: "width:300px;border-radius: 15px 15px 15px 15px;") } %>
-            <div class="container">
-              <h6><%= b.text %></h6>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-
-    <div>
-      <% match_predection_data = MatchPredection.where(date: today_match) %>
-      <% winners1_data = match_predection_data.group(:winners1).count %>
-      <% winners1_data.delete_if{|k,v| k.class == nil.class } %>
-      <% total = winners1_data.values.sum %>
-      <% winner_percentage = winners1_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
-      <% user_names = match_predection_data.collect(&:name) %>
-      <% unless winner_percentage.empty? %>
-        <p class="text-muted"> <b> Participants: </b> <%= user_names.join(',') %> </p>
-        <div class="progress" style="height: 25px;width: 70%;border-radius: 55px">
-          
-          <% if winner_percentage.values.second %>
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:<%= winner_percentage[match['team1']] %>%;background-color: <%= team_color[match['team1']]%>" aria-valuenow="<%= winner_percentage[match['team1']] %>" aria-valuemin="0" aria-valuemax="100">
-              <b>
-                <%= match['team1'].split.map(&:first).join %>  
-                <%= winner_percentage[match['team1']] %>%
-              </b>
-            </div>
-            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: <%= winner_percentage[match['team2']] %>%;background-color: <%= team_color[match['team2']]%>" role="progressbar" aria-valuenow="<%= winner_percentage[match['team2']] %>" aria-valuemin="0" aria-valuemax="100">
-              <b>
-                <%= match['team2'].split.map(&:first).join %> 
-                <%= winner_percentage[match['team2']] %>%
-              </b>
-            </div>
-          <% else %>
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:<%= winner_percentage.values.first %>%;background-color: <%= team_color[winner_percentage.keys.first]%>" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100">
-              <b>
-                <%= winner_percentage.keys.first.split.map(&:first).join %>  
-                <%= winner_percentage.values.first %>%
-              </b>
-            </div>
-          <% end %>
-
-        </div>
-        
-      <% end %>
-
-    </div>
-    
-    <br><br><br><br>
-    <% match_number+= 1%>
-
-    <% if all_match.count > 1 %>
-      <% match = all_match.last %>
+  </script>
+  <%= form_for @new_match_predection do |f| %>
+    <center>
+      <%= f.text_field :name, class: 'form-control captitalize', placeholder: "Enter Your Name", required: true %> 
+      <%= f.password_field :password, class: 'form-control', placeholder: "Enter Your Password", required: true %>
+      <input class="form-check-input" type="checkbox" onclick="myFunction()">Show Password
+      <br><br><br>
+      <h1 style="text-align:center"> <%= today_match %> Matches </h1>
+      <br><br><br>
       <h1> Match <%= match_number %> </h1>
-      <h6> You can select the team till 7:30 PM </h6>
+      <% end_time = all_match.count > 1 ? "3:30 PM" : "7:30 PM" %>
+      <h6> You can select the team till <%= end_time %> </h6>
       <br><br><br>
       
       <div class="row">
-        <%= f.collection_radio_buttons(:winners2, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last,html_options: { class: 'form-control' }) do |b| %>
+        <%= f.collection_radio_buttons(:winners1, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last) do |b| %>
           <div class="column">
             <div class="card">
               <%= b.label { b.radio_button(class: "checkmark",checked: true,required: true) + image_tag(b.text+'.jpg', style: "width:300px;border-radius: 15px 15px 15px 15px;") } %>
@@ -112,9 +54,10 @@
 
       <div>
         <% match_predection_data = MatchPredection.where(date: today_match) %>
-        <% winners2_data = match_predection_data.group(:winners2).count %>
-        <% total = winners2_data.values.sum %>
-        <% winner_percentage = winners2_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
+        <% winners1_data = match_predection_data.group(:winners1).count %>
+        <% winners1_data.delete_if{|k,v| k.class == nil.class } %>
+        <% total = winners1_data.values.sum %>
+        <% winner_percentage = winners1_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
         <% user_names = match_predection_data.collect(&:name) %>
         <% unless winner_percentage.empty? %>
           <p class="text-muted"> <b> Participants: </b> <%= user_names.join(',') %> </p>
@@ -148,10 +91,75 @@
 
       </div>
       
-      <br><br>
-    <% end %>
-  
-    <%= f.submit "Submit", class: 'save_button' %>
+      <br><br><br><br>
+      <% match_number+= 1%>
+
+      <% if all_match.count > 1 %>
+        <% match = all_match.last %>
+        <h1> Match <%= match_number %> </h1>
+        <h6> You can select the team till 7:30 PM </h6>
+        <br><br><br>
+        
+        <div class="row">
+          <%= f.collection_radio_buttons(:winners2, [[match['team1'], match['team1']] ,[match['team2'], match['team2']] ], :first, :last,html_options: { class: 'form-control' }) do |b| %>
+            <div class="column">
+              <div class="card">
+                <%= b.label { b.radio_button(class: "checkmark",checked: true,required: true) + image_tag(b.text+'.jpg', style: "width:300px;border-radius: 15px 15px 15px 15px;") } %>
+                <div class="container">
+                  <h6><%= b.text %></h6>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div>
+          <% match_predection_data = MatchPredection.where(date: today_match) %>
+          <% winners2_data = match_predection_data.group(:winners2).count %>
+          <% total = winners2_data.values.sum %>
+          <% winner_percentage = winners2_data.transform_values { |v| (v * 100.0 / total).round(0) } %>
+          <% user_names = match_predection_data.collect(&:name) %>
+          <% unless winner_percentage.empty? %>
+            <p class="text-muted"> <b> Participants: </b> <%= user_names.join(',') %> </p>
+            <div class="progress" style="height: 25px;width: 70%;border-radius: 55px">
+              
+              <% if winner_percentage.values.second %>
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:<%= winner_percentage[match['team1']] %>%;background-color: <%= team_color[match['team1']]%>" aria-valuenow="<%= winner_percentage[match['team1']] %>" aria-valuemin="0" aria-valuemax="100">
+                  <b>
+                    <%= match['team1'].split.map(&:first).join %>  
+                    <%= winner_percentage[match['team1']] %>%
+                  </b>
+                </div>
+                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: <%= winner_percentage[match['team2']] %>%;background-color: <%= team_color[match['team2']]%>" role="progressbar" aria-valuenow="<%= winner_percentage[match['team2']] %>" aria-valuemin="0" aria-valuemax="100">
+                  <b>
+                    <%= match['team2'].split.map(&:first).join %> 
+                    <%= winner_percentage[match['team2']] %>%
+                  </b>
+                </div>
+              <% else %>
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:<%= winner_percentage.values.first %>%;background-color: <%= team_color[winner_percentage.keys.first]%>" aria-valuenow="<%= winner_percentage.values.first %>" aria-valuemin="0" aria-valuemax="100">
+                  <b>
+                    <%= winner_percentage.keys.first.split.map(&:first).join %>  
+                    <%= winner_percentage.values.first %>%
+                  </b>
+                </div>
+              <% end %>
+
+            </div>
+            
+          <% end %>
+
+        </div>
+        
+        <br><br>
+      <% end %>
+    
+      <%= f.submit "Submit", class: 'save_button' %>
+    </center>
+    
+  <% end %>
+<% else %>
+  <center>
+    <h1> NO Match Today</h1>
   </center>
-  
-<% end %>
+<%end%>
