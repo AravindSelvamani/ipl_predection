@@ -77,5 +77,6 @@ module MatchPredectionsHelper
       today = Time.now.in_time_zone("Chennai").strftime("%-d-%b-%y")
       match_start_date = "9-Apr-21"
       Date.parse(today) >= Date.parse(match_start_date) ? today : match_start_date
+      '19-Sep-21'
    end
 end
