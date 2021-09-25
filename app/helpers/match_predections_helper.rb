@@ -36,7 +36,7 @@ module MatchPredectionsHelper
     '23-Sep-21'=>  [ {'team1' =>'Mumbai Indians', 'team2'=>'Kolkata Knight Riders', 'start_time'=>'14:00'}],
     '24-Sep-21'=>  [ {'team1' =>'Royal Challengers Bangalore', 'team2'=>'Chennai Super Kings', 'start_time'=>'14:00'}],
     '25-Sep-21'=>  [ {'team1' =>'Delhi Capitals', 'team2'=>'Rajasthan Royals', 'start_time'=>'10:00'},
-                      {'team1' =>'Delhi Capitals', 'team2'=>'Rajasthan Royals', 'start_time'=>'14:00'}],
+                      {'team1' =>'Sunrisers Hyderabad', 'team2'=>'Punjab Kings', 'start_time'=>'14:00'}],
     '26-Sep-21'=>  [ {'team1' =>'Chennai Super Kings', 'team2'=>'Kolkata Knight Riders', 'start_time'=>'10:00'},
                       {'team1' =>'Royal Challengers Bangalore', 'team2'=>'Mumbai Indians', 'start_time'=>'14:00'}],
     '27-Sep-21'=>  [ {'team1' =>'Sunrisers Hyderabad', 'team2'=>'Rajasthan Royals', 'start_time'=>'14:00'}],
@@ -62,7 +62,7 @@ module MatchPredectionsHelper
     # '15-May-21'=>  [ {'team1' =>'', 'team2'=>'', 'start_time'=>'14:00'}]
   }
 
-  TEAM_COLOR = { 
+  TEAM_COLOR = {
     'Mumbai Indians' => '#004ba0',
     'Chennai Super Kings' => '#fcce06',
     'Kolkata Knight Riders' => '#3a225d',
