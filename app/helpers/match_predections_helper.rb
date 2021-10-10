@@ -55,9 +55,9 @@ module MatchPredectionsHelper
     '7-Oct-21'=>    [ {'team1' =>'Chennai Super Kings', 'team2'=>'Punjab Kings', 'start_time'=>'10:00'},
                       {'team1' =>'Kolkata Knight Riders', 'team2'=>'Rajasthan Royals', 'start_time'=>'14:00'}],
     '8-Oct-21'=>    [ {'team1' =>'Sunrisers Hyderabad', 'team2'=>'Mumbai Indians', 'start_time'=>'10:00'},
-                      {'team1' =>'Royal Challengers Bangalore', 'team2'=>'Delhi Capitals', 'start_time'=>'14:00'}]
-    # '10-May-21'=>  [ {'team1' =>'', 'team2'=>'', 'start_time'=>'14:00'}],
-    # '11-May-21'=>  [ {'team1' =>'', 'team2'=>'', 'start_time'=>'14:00'}],
+                      {'team1' =>'Royal Challengers Bangalore', 'team2'=>'Delhi Capitals', 'start_time'=>'14:00'}],
+    '10-May-21'=>  [ {'team1' =>'Chennai Super Kings', 'team2'=>'Delhi Capitals', 'start_time'=>'14:00'}],
+    '11-May-21'=>  [ {'team1' =>'Royal Challengers Bangalore', 'team2'=>'Kolkata Knight Riders', 'start_time'=>'14:00'}]
     # '13-May-21'=>  [ {'team1' =>'', 'team2'=>'', 'start_time'=>'14:00'}],
     # '15-May-21'=>  [ {'team1' =>'', 'team2'=>'', 'start_time'=>'14:00'}]
   }
